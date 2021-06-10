@@ -90,7 +90,7 @@ class MyApp extends StatelessWidget {
         routes: {
           ErrorScreen.route: (ctx) => ErrorScreen(),
           PermissionScreen.route: (ctx) => PermissionScreen(),
-          HomeScreen.route: (ctx) => HomeScreen(),
+          HomeScreen.route: (ctx) => HomeScreen(), 
         },
         home: FutureBuilder(
           future: _requestPermission,

@@ -1,20 +1,20 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../utils/my_video_player.dart';
 
-class ViewPhotoScreen extends StatefulWidget {
-  static const route = '/view-photo-screen';
-  final String imgPath;
-  const ViewPhotoScreen({
+class ViewVideoScreen extends StatefulWidget {
+  static const route = '/view-video-screen';
+  final String videoFilePath;
+  const ViewVideoScreen({
     Key? key,
-    required this.imgPath,
+    required this.videoFilePath,
   }) : super(key: key);
-
   @override
-  _ViewPhotoScreenState createState() => _ViewPhotoScreenState();
+  _ViewVideoScreenState createState() => _ViewVideoScreenState();
 }
 
-class _ViewPhotoScreenState extends State<ViewPhotoScreen> {
+class _ViewVideoScreenState extends State<ViewVideoScreen> {
   bool _isLoading = false;
   late FToast fToast;
   void initState() {
@@ -72,22 +72,21 @@ class _ViewPhotoScreenState extends State<ViewPhotoScreen> {
         });
   }
 
-  _saveImage() async {
+  _saveVideo() async {
     if (_isLoading) return;
     setState(() {
       _isLoading = true;
     });
     try {
-      final myUri = Uri.parse(widget.imgPath);
-      final originalImageFile = File.fromUri(myUri);
+      final originalVideoFile = File(widget.videoFilePath);
       if (!Directory('/storage/emulated/0/status_saver').existsSync()) {
         Directory('/storage/emulated/0/status_saver')
             .createSync(recursive: true);
       }
       final timestamp = DateTime.now().toString();
       final newFileName =
-          '/storage/emulated/0/status_saver/IMAGE-$timestamp.jpg';
-      await originalImageFile.copy(newFileName);
+          '/storage/emulated/0/status_saver/VIDEO-$timestamp.mp4';
+      await originalVideoFile.copy(newFileName);
     } catch (e) {
       setState(() {
         _isLoading = false;
@@ -108,15 +107,7 @@ class _ViewPhotoScreenState extends State<ViewPhotoScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Center(
-            child: Hero(
-              tag: widget.imgPath,
-              child: Image.file(
-                File(widget.imgPath),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+          MyVideoPlayer(path: widget.videoFilePath),
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
@@ -129,7 +120,7 @@ class _ViewPhotoScreenState extends State<ViewPhotoScreen> {
                   Spacer(),
                   IconButton(
                     icon: Icon(Icons.download),
-                    onPressed: _saveImage,
+                    onPressed: _saveVideo,
                   ),
                   IconButton(icon: Icon(Icons.share), onPressed: () {})
                 ],
