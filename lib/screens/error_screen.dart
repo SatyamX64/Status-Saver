@@ -7,14 +7,27 @@ class ErrorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
       body: Center(
-        child: Text(
-          'Error',
-          style: Theme.of(context)
-              .textTheme
-              .headline6
-              ?.copyWith(fontWeight: FontWeight.bold),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            FittedBox(
+              child: Text(
+                'ʕノ•ᴥ•ʔノ ︵ ┻━┻',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4,
+              ),
+            ),
+            FittedBox(
+              child: Text(
+                'Error 404',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4,
+              ),
+            ),
+          ],
         ),
       ),
     );

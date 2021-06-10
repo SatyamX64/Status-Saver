@@ -1,0 +1,1 @@
+const String statusPath = "/storage/emulated/0/WhatsApp/Media/.Statuses";

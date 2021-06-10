@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:whatsapp_helper/screens/home_screen.dart';
-import 'package:whatsapp_helper/services/permissions_service.dart';
+import '/services/permissions_service.dart';
+import 'home_screen.dart';
 
 class PermissionScreen extends StatelessWidget {
   static const route = '/permission-screen';
@@ -16,13 +16,13 @@ class PermissionScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              'Some Permissions were not Allowed',
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6
-                  ?.copyWith(fontWeight: FontWeight.w600),
+            FittedBox(
+              child: Text(
+                'ʕ•ᴥ•ʔ',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4,
+              ),
             ),
             ElevatedButton(
               onPressed: () async {
