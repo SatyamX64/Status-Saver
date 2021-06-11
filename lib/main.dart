@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:whatsapp_helper/constants.dart';
 import 'package:whatsapp_helper/screens/permission_screen.dart';
 import 'package:whatsapp_helper/screens/error_screen.dart';
 import 'package:whatsapp_helper/screens/home_screen.dart';
+import 'package:whatsapp_helper/screens/chat_screen.dart';
 import 'package:whatsapp_helper/services/permissions_service.dart';
 
 void main() async {
@@ -32,18 +34,28 @@ class MyApp extends StatelessWidget {
       light: ThemeData(
         brightness: Brightness.light,
         fontFamily: 'Helvetica',
-        primaryColor: Color(0xFF075E54),
-        accentColor: Color(0xFF25D366),
-        iconTheme: IconThemeData(color: Colors.white),
+        primaryColor: ColorPalette.lightPrimary,
+        accentColor: ColorPalette.lightAccent,
+        scaffoldBackgroundColor: ColorPalette.lightBackground,
+        iconTheme:
+            IconThemeData(color: ColorPalette.lightBackground), // For FAB
+        primaryIconTheme: IconThemeData(
+          color: ColorPalette.lightActive,
+        ),
+        textSelectionTheme: TextSelectionThemeData(
+            selectionHandleColor: ColorPalette.lightAccent,
+            cursorColor: ColorPalette.lightInactive),
         textTheme: TextTheme(
-            headline6:
-                TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            headline4:
-                TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+          headline6: TextStyle(
+              color: ColorPalette.lightInactive, fontWeight: FontWeight.bold),
+          headline4: TextStyle(
+              color: ColorPalette.lightInactive, fontWeight: FontWeight.bold),
+        ),
         appBarTheme: AppBarTheme(
-            titleTextStyle:
-                TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+            titleTextStyle: TextStyle(
+                fontWeight: FontWeight.bold, color: ColorPalette.lightActive)),
         tabBarTheme: TabBarTheme(
+          labelColor: ColorPalette.lightActive,
           labelStyle: TextStyle(fontWeight: FontWeight.bold),
           unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
           indicator: BoxDecoration(
@@ -59,24 +71,27 @@ class MyApp extends StatelessWidget {
       dark: ThemeData(
         brightness: Brightness.dark,
         fontFamily: 'Helvetica',
-        primaryColor: Color(0xFF232D36),
-        accentColor: Color(0xFF00B09C),
-        scaffoldBackgroundColor: Color(0xFF101D25),
-        iconTheme: IconThemeData(color: Colors.white),
+        primaryColor: ColorPalette.darkPrimary,
+        accentColor: ColorPalette.darkAccent,
+        scaffoldBackgroundColor: ColorPalette.darkBackground,
+        iconTheme: IconThemeData(color: ColorPalette.darkBackground), // For FAB
         primaryIconTheme: IconThemeData(
-          color: Color(0xFF9FA8AF),
+          color: ColorPalette.darkActive,
         ),
+        textSelectionTheme: TextSelectionThemeData(
+            selectionHandleColor: ColorPalette.darkAccent,
+            cursorColor: ColorPalette.darkActive),
         textTheme: TextTheme(
             headline6: TextStyle(
-                color: Color(0xFF9FA8AF), fontWeight: FontWeight.bold),
+                color: ColorPalette.darkInactive, fontWeight: FontWeight.bold),
             headline4: TextStyle(
-                color: Color(0xFF9FA8AF), fontWeight: FontWeight.bold)),
+                color: ColorPalette.darkInactive, fontWeight: FontWeight.bold)),
         appBarTheme: AppBarTheme(
             titleTextStyle: TextStyle(
-                fontWeight: FontWeight.bold, color: Color(0xFF9FA8AF))),
+                fontWeight: FontWeight.bold, color: ColorPalette.darkActive)),
         tabBarTheme: TabBarTheme(
-          labelColor: Color(0xFF00B09C),
-          unselectedLabelColor: Color(0xFF9FA8AF),
+          labelColor: ColorPalette.darkActive,
+          unselectedLabelColor: ColorPalette.darkInactive,
           labelStyle: TextStyle(fontWeight: FontWeight.bold),
           unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
         ),
@@ -90,7 +105,8 @@ class MyApp extends StatelessWidget {
         routes: {
           ErrorScreen.route: (ctx) => ErrorScreen(),
           PermissionScreen.route: (ctx) => PermissionScreen(),
-          HomeScreen.route: (ctx) => HomeScreen(), 
+          HomeScreen.route: (ctx) => HomeScreen(),
+          ChatScreen.route: (ctx) => ChatScreen(),
         },
         home: FutureBuilder(
           future: _requestPermission,

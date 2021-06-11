@@ -20,8 +20,10 @@ dependencies:
   adaptive_theme: ^2.2.0
   fluttertoast: ^8.0.7
   video_thumbnail: ^0.3.3
-  flutter_open_whatsapp: ^0.1.2
-  
+  url_launcher: ^6.0.6
+  country_pickers: ^2.0.0
+  lottie: ^1.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -29,7 +31,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-   - assets/img/whatsapp.png
+   - assets/animation/send.json
 
   fonts:
     - family: Helvetica

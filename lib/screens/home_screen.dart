@@ -1,6 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
+import 'package:whatsapp_helper/screens/chat_screen.dart';
 import '/ui/dashboards/image.dart';
 import '/ui/dashboards/saved.dart';
 import '/ui/dashboards/video.dart';
@@ -62,7 +62,7 @@ class HomeScreen extends StatelessWidget {
             color: Theme.of(context).iconTheme.color,
           ),
           onPressed: () {
-            FlutterOpenWhatsapp.sendSingleMessage("+918179015345", "Hello");
+            Navigator.pushNamed(context, ChatScreen.route);
           },
         ),
       ),
