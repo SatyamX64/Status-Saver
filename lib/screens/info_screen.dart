@@ -113,6 +113,7 @@ class InfoScreen extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
+                                    fontFamily: 'Helvetica',
                                     color: adaptiveTheme.mode ==
                                             AdaptiveThemeMode.dark
                                         ? ColorPalette.darkActive
@@ -131,6 +132,7 @@ class InfoScreen extends StatelessWidget {
                                       },
                                     style: TextStyle(
                                       fontSize: 14,
+                                      fontFamily: 'Helvetica',
                                       fontWeight: FontWeight.bold,
                                       color: adaptiveTheme.mode ==
                                               AdaptiveThemeMode.dark
