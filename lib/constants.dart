@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 const String statusPath = "/storage/emulated/0/WhatsApp/Media/.Statuses";
+const String savePath = "/storage/emulated/0/status_saver";
 
 class ColorPalette {
   static const lightPrimary = const Color(0xFF07ba60);

@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:whatsapp_helper/constants.dart';
 
 class ViewPhotoScreen extends StatefulWidget {
   static const route = '/view-photo-screen';
@@ -80,13 +82,11 @@ class _ViewPhotoScreenState extends State<ViewPhotoScreen> {
     try {
       final myUri = Uri.parse(widget.imgPath);
       final originalImageFile = File.fromUri(myUri);
-      if (!Directory('/storage/emulated/0/status_saver').existsSync()) {
-        Directory('/storage/emulated/0/status_saver')
-            .createSync(recursive: true);
+      if (!Directory(savePath).existsSync()) {
+        Directory(savePath).createSync(recursive: true);
       }
       final timestamp = DateTime.now().toString();
-      final newFileName =
-          '/storage/emulated/0/status_saver/IMAGE-$timestamp.jpg';
+      final newFileName = savePath + '/IMAGE-$timestamp.jpg';
       await originalImageFile.copy(newFileName);
     } catch (e) {
       setState(() {
@@ -131,7 +131,15 @@ class _ViewPhotoScreenState extends State<ViewPhotoScreen> {
                     icon: Icon(Icons.download),
                     onPressed: _saveImage,
                   ),
-                  IconButton(icon: Icon(Icons.share), onPressed: () {})
+                  IconButton(
+                      icon: Icon(Icons.share),
+                      onPressed: () async {
+                        try {
+                          await Share.shareFiles([widget.imgPath], text: '');
+                        } catch (e) {
+                          _showToast(success: false);
+                        }
+                      })
                 ],
               ),
             ),

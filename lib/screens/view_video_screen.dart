@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:whatsapp_helper/constants.dart';
 import '../utils/my_video_player.dart';
 
 class ViewVideoScreen extends StatefulWidget {
@@ -79,13 +81,11 @@ class _ViewVideoScreenState extends State<ViewVideoScreen> {
     });
     try {
       final originalVideoFile = File(widget.videoFilePath);
-      if (!Directory('/storage/emulated/0/status_saver').existsSync()) {
-        Directory('/storage/emulated/0/status_saver')
-            .createSync(recursive: true);
+      if (!Directory(savePath).existsSync()) {
+        Directory(savePath).createSync(recursive: true);
       }
       final timestamp = DateTime.now().toString();
-      final newFileName =
-          '/storage/emulated/0/status_saver/VIDEO-$timestamp.mp4';
+      final newFileName = savePath + '/VIDEO-$timestamp.mp4';
       await originalVideoFile.copy(newFileName);
     } catch (e) {
       setState(() {
@@ -122,7 +122,16 @@ class _ViewVideoScreenState extends State<ViewVideoScreen> {
                     icon: Icon(Icons.download),
                     onPressed: _saveVideo,
                   ),
-                  IconButton(icon: Icon(Icons.share), onPressed: () {})
+                  IconButton(
+                      icon: Icon(Icons.share),
+                      onPressed: () async {
+                        try {
+                          await Share.shareFiles([widget.videoFilePath],
+                              text: '');
+                        } catch (e) {
+                          _showToast(success: false);
+                        }
+                      })
                 ],
               ),
             ),

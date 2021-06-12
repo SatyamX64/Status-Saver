@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         accentColor: ColorPalette.lightAccent,
         scaffoldBackgroundColor: ColorPalette.lightBackground,
         iconTheme:
-            IconThemeData(color: ColorPalette.lightBackground), // For FAB
+            IconThemeData(color: ColorPalette.lightActive), // For FAB
         primaryIconTheme: IconThemeData(
           color: ColorPalette.lightActive,
         ),
@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
         primaryColor: ColorPalette.darkPrimary,
         accentColor: ColorPalette.darkAccent,
         scaffoldBackgroundColor: ColorPalette.darkBackground,
-        iconTheme: IconThemeData(color: ColorPalette.darkBackground), // For FAB
+        iconTheme: IconThemeData(color: ColorPalette.darkActive), // For FAB
         primaryIconTheme: IconThemeData(
           color: ColorPalette.darkActive,
         ),

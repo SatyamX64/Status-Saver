@@ -52,6 +52,25 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final adaptiveTheme = AdaptiveTheme.of(context);
+
+    Widget _gradientBackground = Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: adaptiveTheme.mode == AdaptiveThemeMode.dark
+              ? [ColorPalette.darkGradientHigh, ColorPalette.darkGradientLow]
+              : [
+                  ColorPalette.lightGradientLow,
+                  ColorPalette.lightGradientHigh,
+                ],
+        ),
+      ),
+      alignment: Alignment.center,
+      height: size.height * 0.6,
+      child: Lottie.asset('assets/animation/send.json'),
+    );
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -69,26 +88,7 @@ class _ChatScreenState extends State<ChatScreen> {
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: adaptiveTheme.mode == AdaptiveThemeMode.dark
-                      ? [
-                          ColorPalette.darkGradientHigh,
-                          ColorPalette.darkGradientLow
-                        ]
-                      : [
-                          ColorPalette.lightGradientLow,
-                          ColorPalette.lightGradientHigh,
-                        ],
-                ),
-              ),
-              alignment: Alignment.center,
-              height: size.height * 0.6,
-              child: Lottie.asset('assets/animation/send.json'),
-            ),
+            _gradientBackground,
             Column(
               children: [
                 Container(
@@ -153,38 +153,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                         : ColorPalette.lightAccent,
                                   ),
                                   onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => CountryPickerDialog(
-                                          titlePadding: EdgeInsets.all(8.0),
-                                          searchInputDecoration:
-                                              InputDecoration(
-                                                  hintText: 'Search'),
-                                          isSearchable: true,
-                                          title: Text(
-                                            'Select your phone code',
-                                            style: TextStyle(
-                                                color: adaptiveTheme.mode ==
-                                                        AdaptiveThemeMode.dark
-                                                    ? ColorPalette.darkActive
-                                                    : ColorPalette
-                                                        .lightInactive),
-                                          ),
-                                          onValuePicked: (Country country) {
-                                            setState(() {
-                                              countryCode =
-                                                  '+' + country.phoneCode;
-                                              countryName = country.name;
-                                            });
-                                          },
-                                          priorityList: [
-                                            CountryPickerUtils
-                                                .getCountryByIsoCode('TR'),
-                                            CountryPickerUtils
-                                                .getCountryByIsoCode('US'),
-                                          ],
-                                          itemBuilder: _buildCountryDialogItem),
-                                    );
+                                    _getCountry(
+                                        currentMode: adaptiveTheme.mode);
                                   },
                                 )
                               ],
@@ -233,7 +203,6 @@ class _ChatScreenState extends State<ChatScreen> {
                           Spacer(),
                           Material(
                             elevation: 2,
-                            color: Color(0xFF13D776),
                             child: InkWell(
                               onTap: _openWhatsApp,
                               child: Container(
@@ -241,10 +210,10 @@ class _ChatScreenState extends State<ChatScreen> {
                                 padding: EdgeInsets.symmetric(horizontal: 16),
                                 height: 48,
                                 decoration: BoxDecoration(
-                                    color:
-                                        adaptiveTheme.mode == AdaptiveThemeMode.dark
-                                            ? ColorPalette.darkGradientHigh
-                                            : ColorPalette.lightGradientLow),
+                                    color: adaptiveTheme.mode ==
+                                            AdaptiveThemeMode.dark
+                                        ? ColorPalette.darkGradientHigh
+                                        : ColorPalette.lightGradientLow),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
@@ -275,6 +244,34 @@ class _ChatScreenState extends State<ChatScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  void _getCountry({required AdaptiveThemeMode currentMode}) {
+    showDialog(
+      context: context,
+      builder: (context) => CountryPickerDialog(
+          titlePadding: EdgeInsets.all(8.0),
+          searchInputDecoration: InputDecoration(hintText: 'Search'),
+          isSearchable: true,
+          title: Text(
+            'Select your phone code',
+            style: TextStyle(
+                color: currentMode == AdaptiveThemeMode.dark
+                    ? ColorPalette.darkActive
+                    : ColorPalette.lightInactive),
+          ),
+          onValuePicked: (Country country) {
+            setState(() {
+              countryCode = '+' + country.phoneCode;
+              countryName = country.name;
+            });
+          },
+          priorityList: [
+            CountryPickerUtils.getCountryByIsoCode('TR'),
+            CountryPickerUtils.getCountryByIsoCode('US'),
+          ],
+          itemBuilder: _buildCountryDialogItem),
     );
   }
 
