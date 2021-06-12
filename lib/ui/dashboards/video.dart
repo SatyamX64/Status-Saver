@@ -23,9 +23,22 @@ class VideoDashBoard extends StatelessWidget {
     if (!Directory('${_videoDir.path}').existsSync()) {
       return Center(
         child: FittedBox(
-          child: Text(
-            "Install WhatsApp ʕノ•ᴥ•ʔノ",
-            style: Theme.of(context).textTheme.headline6,
+          child: RichText(
+            text: TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  text: "Install WhatsApp ",
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                TextSpan(
+                  text: "ʕノ•ᴥ•ʔノ",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      ?.copyWith(fontFamily: ''),
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -75,7 +88,10 @@ class VideoDashBoard extends StatelessWidget {
                             return Center(
                               child: Text(
                                 "⚆ _ ⚆",
-                                style: Theme.of(context).textTheme.headline6,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    ?.copyWith(fontFamily: ''),
                               ),
                             );
                           }
@@ -96,9 +112,22 @@ class VideoDashBoard extends StatelessWidget {
       } else {
         return Center(
           child: FittedBox(
-            child: Text(
-              "No Videos Found ʕノ•ᴥ•ʔノ",
-              style: Theme.of(context).textTheme.headline6,
+            child: RichText(
+              text: TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                    text: "No Videos Found ",
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  TextSpan(
+                    text: "ʕノ•ᴥ•ʔノ",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6
+                        ?.copyWith(fontFamily: ''),
+                  ),
+                ],
+              ),
             ),
           ),
         );

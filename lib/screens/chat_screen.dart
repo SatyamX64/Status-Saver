@@ -92,10 +92,7 @@ class _ChatScreenState extends State<ChatScreen> {
             Column(
               children: [
                 Container(
-                  height: size.height -
-                      360 - // Container Size
-                      32 - // 2*verticalPadding
-                      MediaQuery.of(context).padding.bottom,
+                  height: size.height*0.4         
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),

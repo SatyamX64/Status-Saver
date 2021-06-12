@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp_helper/screens/chat_screen.dart';
+import 'package:whatsapp_helper/screens/info_screen.dart';
 import '/ui/dashboards/image.dart';
 import '/ui/dashboards/saved.dart';
 import '/ui/dashboards/video.dart';
@@ -15,7 +16,6 @@ class HomeScreen extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        drawer: Drawer(),
         appBar: AppBar(
           title: Text(
             'Status Saver',
@@ -30,6 +30,11 @@ class HomeScreen extends StatelessWidget {
                   adaptiveTheme.mode == AdaptiveThemeMode.dark
                       ? adaptiveTheme.setLight()
                       : adaptiveTheme.setDark();
+                }),
+            IconButton(
+                icon: Icon(Icons.info),
+                onPressed: () {
+                  Navigator.pushNamed(context, InfoScreen.route);
                 }),
           ],
           bottom: TabBar(tabs: [

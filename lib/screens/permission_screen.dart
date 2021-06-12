@@ -21,7 +21,7 @@ class PermissionScreen extends StatelessWidget {
                 'ʕ•ᴥ•ʔ',
                 style: Theme.of(context)
                     .textTheme
-                    .headline4,
+                    .headline4?.copyWith(fontFamily: ''),
               ),
             ),
             ElevatedButton(

@@ -23,9 +23,22 @@ class SavedDashBoard extends StatelessWidget {
     if (!Directory('${_savedDir.path}').existsSync()) {
       return Center(
         child: FittedBox(
-          child: Text(
-            "Nothing Saved Yet ʕノ•ᴥ•ʔノ",
-            style: Theme.of(context).textTheme.headline6,
+          child: RichText(
+            text: TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  text: "Nothing Saved Yet ",
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                TextSpan(
+                  text: "ʕノ•ᴥ•ʔノ",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      ?.copyWith(fontFamily: ''),
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -124,8 +137,10 @@ class SavedDashBoard extends StatelessWidget {
                                   return Center(
                                     child: Text(
                                       "⚆ _ ⚆",
-                                      style:
-                                          Theme.of(context).textTheme.headline6,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6
+                                          ?.copyWith(fontFamily: ''),
                                     ),
                                   );
                                 }
@@ -148,9 +163,22 @@ class SavedDashBoard extends StatelessWidget {
       } else {
         return Center(
           child: FittedBox(
-            child: Text(
-              "Nothing Saved Yet ʕノ•ᴥ•ʔノ",
-              style: Theme.of(context).textTheme.headline6,
+            child: RichText(
+              text: TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                    text: "Nothing Saved Yet ",
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  TextSpan(
+                    text: "ʕノ•ᴥ•ʔノ",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6
+                        ?.copyWith(fontFamily: ''),
+                  ),
+                ],
+              ),
             ),
           ),
         );

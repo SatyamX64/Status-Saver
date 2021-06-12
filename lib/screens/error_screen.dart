@@ -16,7 +16,7 @@ class ErrorScreen extends StatelessWidget {
                 'ʕノ•ᴥ•ʔノ ︵ ┻━┻',
                 style: Theme.of(context)
                     .textTheme
-                    .headline4,
+                    .headline4?.copyWith(fontFamily: ''),
               ),
             ),
             FittedBox(

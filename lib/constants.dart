@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 const String statusPath = "/storage/emulated/0/WhatsApp/Media/.Statuses";
 const String savePath = "/storage/emulated/0/status_saver";
 
+const String portfolioLink = "https://www.google.com";
+const String playStoreLink = "https://www.gooogle.com";
+
 class ColorPalette {
   static const lightPrimary = const Color(0xFF07ba60);
   static const lightAccent = const Color(0xFF13D776);

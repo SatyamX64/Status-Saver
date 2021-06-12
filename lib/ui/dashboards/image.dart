@@ -13,9 +13,22 @@ class ImageDashBoard extends StatelessWidget {
     if (!Directory('${_photoDir.path}').existsSync()) {
       return Center(
         child: FittedBox(
-          child: Text(
-            "Install WhatsApp ʕノ•ᴥ•ʔノ",
-            style: Theme.of(context).textTheme.headline6,
+          child: RichText(
+            text: TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  text: "Install WhatsApp ",
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                TextSpan(
+                  text: "ʕノ•ᴥ•ʔノ",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      ?.copyWith(fontFamily: ''),
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -69,9 +82,22 @@ class ImageDashBoard extends StatelessWidget {
       } else {
         return Center(
           child: FittedBox(
-            child: Text(
-              "No Image Found ʕノ•ᴥ•ʔノ",
-              style: Theme.of(context).textTheme.headline6,
+            child: RichText(
+              text: TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                    text: "No Image Found ",
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  TextSpan(
+                    text: "ʕノ•ᴥ•ʔノ",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6
+                        ?.copyWith(fontFamily: ''),
+                  ),
+                ],
+              ),
             ),
           ),
         );

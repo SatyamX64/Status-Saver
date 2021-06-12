@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:whatsapp_helper/constants.dart';
+import 'package:whatsapp_helper/screens/info_screen.dart';
 import 'package:whatsapp_helper/screens/permission_screen.dart';
 import 'package:whatsapp_helper/screens/error_screen.dart';
 import 'package:whatsapp_helper/screens/home_screen.dart';
@@ -37,11 +38,15 @@ class MyApp extends StatelessWidget {
         primaryColor: ColorPalette.lightPrimary,
         accentColor: ColorPalette.lightAccent,
         scaffoldBackgroundColor: ColorPalette.lightBackground,
-        iconTheme:
-            IconThemeData(color: ColorPalette.lightActive), // For FAB
+        iconTheme: IconThemeData(color: ColorPalette.lightActive), // For FAB
         primaryIconTheme: IconThemeData(
           color: ColorPalette.lightActive,
         ),
+        buttonColor: ColorPalette.darkAccent,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(primary: ColorPalette.lightAccent)),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+            style: OutlinedButton.styleFrom(primary: ColorPalette.lightAccent)),
         textSelectionTheme: TextSelectionThemeData(
             selectionHandleColor: ColorPalette.lightAccent,
             cursorColor: ColorPalette.lightInactive),
@@ -78,6 +83,11 @@ class MyApp extends StatelessWidget {
         primaryIconTheme: IconThemeData(
           color: ColorPalette.darkActive,
         ),
+        buttonColor: ColorPalette.darkAccent,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(primary: ColorPalette.darkAccent)),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+            style: OutlinedButton.styleFrom(primary: ColorPalette.darkAccent)),
         textSelectionTheme: TextSelectionThemeData(
             selectionHandleColor: ColorPalette.darkAccent,
             cursorColor: ColorPalette.darkActive),
@@ -107,6 +117,7 @@ class MyApp extends StatelessWidget {
           PermissionScreen.route: (ctx) => PermissionScreen(),
           HomeScreen.route: (ctx) => HomeScreen(),
           ChatScreen.route: (ctx) => ChatScreen(),
+          InfoScreen.route: (ctx) => InfoScreen(),
         },
         home: FutureBuilder(
           future: _requestPermission,
