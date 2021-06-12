@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:whatsapp_helper/constants.dart';
-import 'package:whatsapp_helper/screens/info_screen.dart';
-import 'package:whatsapp_helper/screens/permission_screen.dart';
-import 'package:whatsapp_helper/screens/error_screen.dart';
-import 'package:whatsapp_helper/screens/home_screen.dart';
-import 'package:whatsapp_helper/screens/chat_screen.dart';
-import 'package:whatsapp_helper/services/permissions_service.dart';
+import 'package:status_saver/constants.dart';
+import 'package:status_saver/screens/info_screen.dart';
+import 'package:status_saver/screens/permission_screen.dart';
+import 'package:status_saver/screens/error_screen.dart';
+import 'package:status_saver/screens/home_screen.dart';
+import 'package:status_saver/screens/chat_screen.dart';
+import 'package:status_saver/services/permissions_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

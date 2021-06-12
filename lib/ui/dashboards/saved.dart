@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
-import 'package:whatsapp_helper/screens/view_photo_screen.dart';
-import 'package:whatsapp_helper/screens/view_video_screen.dart';
+import 'package:status_saver/screens/view_photo_screen.dart';
+import 'package:status_saver/screens/view_video_screen.dart';
 import 'dart:io';
 import '../../constants.dart';
 

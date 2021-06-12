@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:whatsapp_helper/constants.dart';
-import 'package:whatsapp_helper/services/whatsapp_unilink.dart';
+import 'package:status_saver/constants.dart';
+import 'package:status_saver/services/whatsapp_unilink.dart';
 
 class ChatScreen extends StatefulWidget {
   static const route = "/chat-screen";
@@ -91,9 +91,7 @@ class _ChatScreenState extends State<ChatScreen> {
             _gradientBackground,
             Column(
               children: [
-                Container(
-                  height: size.height*0.4         
-                ),
+                Container(height: size.height * 0.4),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Material(

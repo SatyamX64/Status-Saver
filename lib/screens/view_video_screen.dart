@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:whatsapp_helper/constants.dart';
+import 'package:status_saver/constants.dart';
 import '../utils/my_video_player.dart';
 
 class ViewVideoScreen extends StatefulWidget {

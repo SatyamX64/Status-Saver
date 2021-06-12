@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:whatsapp_helper/constants.dart';
+import 'package:status_saver/constants.dart';
 
 class ViewPhotoScreen extends StatefulWidget {
   static const route = '/view-photo-screen';

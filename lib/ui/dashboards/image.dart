@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:whatsapp_helper/constants.dart';
-import 'package:whatsapp_helper/screens/view_photo_screen.dart';
+import 'package:status_saver/constants.dart';
+import 'package:status_saver/screens/view_photo_screen.dart';
 
 class ImageDashBoard extends StatelessWidget {
   ImageDashBoard({Key? key}) : super(key: key);
