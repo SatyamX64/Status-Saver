@@ -7,9 +7,11 @@ import 'package:whatsapp_helper/constants.dart';
 class ViewPhotoScreen extends StatefulWidget {
   static const route = '/view-photo-screen';
   final String imgPath;
+  final bool isSaved;
   const ViewPhotoScreen({
     Key? key,
     required this.imgPath,
+    this.isSaved = false,
   }) : super(key: key);
 
   @override
@@ -127,9 +129,12 @@ class _ViewPhotoScreenState extends State<ViewPhotoScreen> {
               child: Row(
                 children: [
                   Spacer(),
-                  IconButton(
-                    icon: Icon(Icons.download),
-                    onPressed: _saveImage,
+                  Visibility(
+                    visible: !widget.isSaved,
+                    child: IconButton(
+                      icon: Icon(Icons.download),
+                      onPressed: _saveImage,
+                    ),
                   ),
                   IconButton(
                       icon: Icon(Icons.share),

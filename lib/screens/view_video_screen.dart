@@ -8,9 +8,11 @@ import '../utils/my_video_player.dart';
 class ViewVideoScreen extends StatefulWidget {
   static const route = '/view-video-screen';
   final String videoFilePath;
+  final bool isSaved;
   const ViewVideoScreen({
     Key? key,
     required this.videoFilePath,
+    this.isSaved = false,
   }) : super(key: key);
   @override
   _ViewVideoScreenState createState() => _ViewVideoScreenState();
@@ -118,9 +120,12 @@ class _ViewVideoScreenState extends State<ViewVideoScreen> {
               child: Row(
                 children: [
                   Spacer(),
-                  IconButton(
-                    icon: Icon(Icons.download),
-                    onPressed: _saveVideo,
+                  Visibility(
+                    visible: !widget.isSaved,
+                    child: IconButton(
+                      icon: Icon(Icons.download),
+                      onPressed: _saveVideo,
+                    ),
                   ),
                   IconButton(
                       icon: Icon(Icons.share),

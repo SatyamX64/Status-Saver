@@ -9,7 +9,7 @@ class VideoDashBoard extends StatelessWidget {
   VideoDashBoard({Key? key}) : super(key: key);
 
   final Directory _videoDir = Directory(statusPath);
-  Future<String?> _getImage(videoPathUrl) async {
+  Future<String?> _getThumbnail(videoPathUrl) async {
     final thumbnail = await VideoThumbnail.thumbnailFile(
         video: videoPathUrl, imageFormat: ImageFormat.PNG);
 
@@ -60,7 +60,7 @@ class VideoDashBoard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(4),
                     child: FutureBuilder(
-                      future: _getImage(videoList[index]),
+                      future: _getThumbnail(videoList[index]),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           if (snapshot.hasData) {

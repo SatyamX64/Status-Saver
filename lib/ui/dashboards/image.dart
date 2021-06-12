@@ -35,7 +35,7 @@ class ImageDashBoard extends StatelessWidget {
               final imgPath = imageList[index];
               return Material(
                 elevation: 8.0,
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                borderRadius: const BorderRadius.all(Radius.circular(4)),
                 child: InkWell(
                   onTap: () {
                     Navigator.push(
@@ -48,7 +48,7 @@ class ImageDashBoard extends StatelessWidget {
                     );
                   },
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(4),
                     child: Hero(
                       tag: imgPath,
                       child: Image.file(
