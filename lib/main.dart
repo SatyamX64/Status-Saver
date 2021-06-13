@@ -133,9 +133,17 @@ class MyApp extends StatelessWidget {
                 return const ErrorScreen();
               }
             } else {
-              return const Scaffold(
+              return Scaffold(
                 body: Center(
-                  child: CircularProgressIndicator(),
+                  child: FittedBox(
+                    child: Text(
+                      'ʕ•ᴥ•ʔ',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4
+                          ?.copyWith(fontFamily: ''),
+                    ),
+                  ),
                 ),
               );
             }
