@@ -104,6 +104,18 @@ class _ViewVideoScreenState extends State<ViewVideoScreen> {
     return;
   }
 
+  _deleteImage() {
+    try {
+      File(widget.videoFilePath).deleteSync();
+    } catch (e) {
+      _showToast(success: false);
+      print('Error while deleting : ' + e.toString());
+      return;
+    }
+    Navigator.of(context).pop(
+        true); // returns true if image is deleted, saved Screen rebuilds in this case
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,6 +137,13 @@ class _ViewVideoScreenState extends State<ViewVideoScreen> {
                     child: IconButton(
                       icon: Icon(Icons.download),
                       onPressed: _saveVideo,
+                    ),
+                  ),
+                  Visibility(
+                    visible: widget.isSaved,
+                    child: IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: _deleteImage,
                     ),
                   ),
                   IconButton(

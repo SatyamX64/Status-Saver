@@ -6,9 +6,16 @@ import 'package:status_saver/screens/view_video_screen.dart';
 import 'dart:io';
 import '../../constants.dart';
 
-class SavedDashBoard extends StatelessWidget {
+class SavedDashBoard extends StatefulWidget {
   SavedDashBoard({Key? key}) : super(key: key);
+
+  @override
+  _SavedDashBoardState createState() => _SavedDashBoardState();
+}
+
+class _SavedDashBoardState extends State<SavedDashBoard> {
   final Directory _savedDir = Directory(savePath);
+
   Future<String?> _getThumbnail(videoPathUrl) async {
     final thumbnail = await VideoThumbnail.thumbnailFile(
         video: videoPathUrl, imageFormat: ImageFormat.PNG);
@@ -70,9 +77,46 @@ class SavedDashBoard extends StatelessWidget {
                 elevation: 8.0,
                 borderRadius: const BorderRadius.all(Radius.circular(4)),
                 child: InkWell(
+                  onLongPress: () {
+                    showDialog(
+                        context: context,
+                        builder: (_) {
+                          return Center(
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  try {
+                                    File(contentPath).deleteSync();
+                                  } catch (e) {
+                                    print(
+                                        'Cannot Delete !! Something Went Wrong');
+                                  }
+                                  Navigator.of(context).pop();
+                                });
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.all(16),
+                                alignment: Alignment.centerLeft,
+                                padding: EdgeInsets.symmetric(horizontal: 16),
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                    borderRadius: BorderRadius.circular(4)),
+                                height: 80,
+                                child: Text(
+                                  'Delete',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14),
+                                ),
+                              ),
+                            ),
+                          );
+                        });
+                  },
                   onTap: contentPath.endsWith('.jpg')
-                      ? () {
-                          Navigator.push(
+                      ? () async {
+                          final isDeleted = await Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => ViewPhotoScreen(
@@ -81,9 +125,12 @@ class SavedDashBoard extends StatelessWidget {
                               ),
                             ),
                           );
+                          if (isDeleted != null && isDeleted == true) {
+                            setState(() {});
+                          }
                         }
-                      : () {
-                          Navigator.push(
+                      : () async{
+                           final isDeleted = await Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => ViewVideoScreen(
@@ -92,6 +139,9 @@ class SavedDashBoard extends StatelessWidget {
                               ),
                             ),
                           );
+                          if (isDeleted != null && isDeleted == true) {
+                            setState(() {});
+                          }
                         },
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(4),

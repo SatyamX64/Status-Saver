@@ -4,7 +4,8 @@ const String statusPath = "/storage/emulated/0/WhatsApp/Media/.Statuses";
 const String savePath = "/storage/emulated/0/status_saver";
 
 const String portfolioLink = "https://www.satyamx64.tech";
-const String playStoreLink = "https://www.satyamx64.tech/projects/status_saver";
+const String playStoreLink =
+    "https://play.google.com/store/apps/details?id=com.satyamx64.status_saver";
 
 class ColorPalette {
   static const lightPrimary = const Color(0xFF07ba60);
