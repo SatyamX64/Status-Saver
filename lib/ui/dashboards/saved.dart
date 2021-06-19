@@ -1,13 +1,13 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:status_saver/screens/view_photo_screen.dart';
 import 'package:status_saver/screens/view_video_screen.dart';
-import 'dart:io';
 import '../../constants.dart';
 
 class SavedDashBoard extends StatefulWidget {
-  SavedDashBoard({Key? key}) : super(key: key);
+  const SavedDashBoard({Key? key}) : super(key: key);
 
   @override
   _SavedDashBoardState createState() => _SavedDashBoardState();
@@ -16,18 +16,17 @@ class SavedDashBoard extends StatefulWidget {
 class _SavedDashBoardState extends State<SavedDashBoard> {
   final Directory _savedDir = Directory(savePath);
 
-  Future<String?> _getThumbnail(videoPathUrl) async {
-    final thumbnail = await VideoThumbnail.thumbnailFile(
-        video: videoPathUrl, imageFormat: ImageFormat.PNG);
+  Future<String?> _getThumbnail(String videoPathUrl) async {
+    final thumbnail = await VideoThumbnail.thumbnailFile(video: videoPathUrl);
 
     final file = File(thumbnail ?? '');
-    String filePath = file.path;
+    final String filePath = file.path;
     return filePath;
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!Directory('${_savedDir.path}').existsSync()) {
+    if (!_savedDir.existsSync()) {
       return Center(
         child: FittedBox(
           child: RichText(
@@ -65,7 +64,7 @@ class _SavedDashBoardState extends State<SavedDashBoard> {
           List<String>.from((imageList + videoList).reversed);
       // Contains the Path of all the Saved Content
 
-      if (savedContentList.length > 0) {
+      if (savedContentList.isNotEmpty) {
         return Container(
           margin: const EdgeInsets.all(8.0),
           child: StaggeredGridView.countBuilder(
@@ -85,25 +84,21 @@ class _SavedDashBoardState extends State<SavedDashBoard> {
                             child: GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  try {
-                                    File(contentPath).deleteSync();
-                                  } catch (e) {
-                                    print(
-                                        'Cannot Delete !! Something Went Wrong');
-                                  }
+                                  File(contentPath).deleteSync();
                                   Navigator.of(context).pop();
                                 });
                               },
                               child: Container(
                                 margin: const EdgeInsets.all(16),
                                 alignment: Alignment.centerLeft,
-                                padding: EdgeInsets.symmetric(horizontal: 16),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
                                 decoration: BoxDecoration(
                                     color: Theme.of(context)
                                         .scaffoldBackgroundColor,
                                     borderRadius: BorderRadius.circular(4)),
                                 height: 80,
-                                child: Text(
+                                child: const Text(
                                   'Delete',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
@@ -129,8 +124,8 @@ class _SavedDashBoardState extends State<SavedDashBoard> {
                             setState(() {});
                           }
                         }
-                      : () async{
-                           final isDeleted = await Navigator.push(
+                      : () async {
+                          final isDeleted = await Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => ViewVideoScreen(
@@ -162,19 +157,19 @@ class _SavedDashBoardState extends State<SavedDashBoard> {
                                   return Stack(
                                     children: [
                                       Container(
-                                        constraints: BoxConstraints.expand(),
+                                        constraints: const BoxConstraints.expand(),
                                         child: Hero(
                                           tag: contentPath,
                                           child: Image.file(
-                                            File(snapshot.data as String),
+                                            File(snapshot.data! as String),
                                             fit: BoxFit.cover,
                                           ),
                                         ),
                                       ),
-                                      Align(
+                                      const Align(
                                         alignment: Alignment.bottomRight,
                                         child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
+                                          padding: EdgeInsets.all(8.0),
                                           child: Icon(
                                             Icons.videocam,
                                             color: Colors.white,
@@ -195,7 +190,7 @@ class _SavedDashBoardState extends State<SavedDashBoard> {
                                   );
                                 }
                               } else {
-                                return Center(
+                                return const Center(
                                     child: CircularProgressIndicator());
                               }
                             },

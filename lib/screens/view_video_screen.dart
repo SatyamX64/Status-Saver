@@ -21,24 +21,26 @@ class ViewVideoScreen extends StatefulWidget {
 class _ViewVideoScreenState extends State<ViewVideoScreen> {
   bool _isLoading = false;
   late FToast fToast;
+
+  @override
   void initState() {
     super.initState();
     fToast = FToast();
     fToast.init(context);
   }
 
-  _showToast({required bool success}) {
+  void _showToast({required bool success}) {
     fToast.removeCustomToast();
-    Widget toast = Container(
+    final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
-        color: success ? Color(0xFF25D366) : Colors.red,
+        color: success ? const Color(0xFF25D366) : Colors.red,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: success
-            ? [
+            ? const [
                 Icon(Icons.check),
                 SizedBox(
                   width: 12.0,
@@ -49,7 +51,7 @@ class _ViewVideoScreenState extends State<ViewVideoScreen> {
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ]
-            : [
+            : const [
                 Icon(Icons.error_outline),
                 SizedBox(
                   width: 12.0,
@@ -65,18 +67,18 @@ class _ViewVideoScreenState extends State<ViewVideoScreen> {
 
     fToast.showToast(
         child: toast,
-        toastDuration: Duration(seconds: 2),
+        toastDuration: const Duration(seconds: 2),
         positionedToastBuilder: (context, child) {
           return Positioned(
-            child: child,
             bottom: 76,
             left: 0,
             right: 0,
+            child: child,
           );
         });
   }
 
-  _saveVideo() async {
+  Future<void> _saveVideo() async {
     if (_isLoading) return;
     setState(() {
       _isLoading = true;
@@ -87,14 +89,13 @@ class _ViewVideoScreenState extends State<ViewVideoScreen> {
         Directory(savePath).createSync(recursive: true);
       }
       final timestamp = DateTime.now().toString();
-      final newFileName = savePath + '/VIDEO-$timestamp.mp4';
+      final newFileName = '$savePath/VIDEO-$timestamp.mp4';
       await originalVideoFile.copy(newFileName);
     } catch (e) {
       setState(() {
         _isLoading = false;
       });
       _showToast(success: false);
-      print('Exception Error while saving video' + e.toString());
       return;
     }
     setState(() {
@@ -104,12 +105,11 @@ class _ViewVideoScreenState extends State<ViewVideoScreen> {
     return;
   }
 
-  _deleteImage() {
+  void _deleteImage() {
     try {
       File(widget.videoFilePath).deleteSync();
     } catch (e) {
       _showToast(success: false);
-      print('Error while deleting : ' + e.toString());
       return;
     }
     Navigator.of(context).pop(
@@ -126,28 +126,28 @@ class _ViewVideoScreenState extends State<ViewVideoScreen> {
             alignment: Alignment.bottomCenter,
             child: Container(
               height: 60,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.black54,
               ),
               child: Row(
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   Visibility(
                     visible: !widget.isSaved,
                     child: IconButton(
-                      icon: Icon(Icons.download),
+                      icon: const Icon(Icons.download),
                       onPressed: _saveVideo,
                     ),
                   ),
                   Visibility(
                     visible: widget.isSaved,
                     child: IconButton(
-                      icon: Icon(Icons.delete),
+                      icon: const Icon(Icons.delete),
                       onPressed: _deleteImage,
                     ),
                   ),
                   IconButton(
-                      icon: Icon(Icons.share),
+                      icon: const Icon(Icons.share),
                       onPressed: () async {
                         try {
                           await Share.shareFiles([widget.videoFilePath],

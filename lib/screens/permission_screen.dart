@@ -10,18 +10,18 @@ class PermissionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             FittedBox(
               child: Text(
                 'ʕ•ᴥ•ʔ',
                 style: Theme.of(context)
                     .textTheme
-                    .headline4?.copyWith(fontFamily: ''),
+                    .headline4
+                    ?.copyWith(fontFamily: ''),
               ),
             ),
             ElevatedButton(
@@ -31,13 +31,13 @@ class PermissionScreen extends StatelessWidget {
                 if (status == PermissionStatus.granted) {
                   Navigator.pushReplacementNamed(context, HomeScreen.route);
                 } else if (status == PermissionStatus.denied) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Please Accept Permission')));
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Please Accept Permission')));
                 } else {
                   _permissionsService.openSettings();
                 }
               },
-              child: Text('Give Permission'),
+              child: const Text('Give Permission'),
             ),
           ],
         ),

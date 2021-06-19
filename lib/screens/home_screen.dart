@@ -8,7 +8,7 @@ import '/ui/dashboards/video.dart';
 
 class HomeScreen extends StatelessWidget {
   static const route = '/home-screen';
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +24,15 @@ class HomeScreen extends StatelessWidget {
           actions: [
             IconButton(
                 icon: adaptiveTheme.mode == AdaptiveThemeMode.dark
-                    ? Icon(Icons.brightness_4)
-                    : Icon(Icons.brightness_7),
+                    ? const Icon(Icons.brightness_4)
+                    : const Icon(Icons.brightness_7),
                 onPressed: () {
                   adaptiveTheme.mode == AdaptiveThemeMode.dark
                       ? adaptiveTheme.setLight()
                       : adaptiveTheme.setDark();
                 }),
             IconButton(
-                icon: Icon(Icons.info),
+                icon: const Icon(Icons.info),
                 onPressed: () {
                   Navigator.pushNamed(context, InfoScreen.route);
                 }),
@@ -59,16 +59,20 @@ class HomeScreen extends StatelessWidget {
           ]),
         ),
         body: TabBarView(
-          children: [ImageDashBoard(), VideoDashBoard(), SavedDashBoard()],
+          children: [
+            ImageDashBoard(),
+            VideoDashBoard(),
+            const SavedDashBoard()
+          ],
         ),
         floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, ChatScreen.route);
+          },
           child: Icon(
             Icons.message,
             color: Theme.of(context).iconTheme.color,
           ),
-          onPressed: () {
-            Navigator.pushNamed(context, ChatScreen.route);
-          },
         ),
       ),
     );

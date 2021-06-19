@@ -10,7 +10,7 @@ class ImageDashBoard extends StatelessWidget {
   final Directory _photoDir = Directory(statusPath);
   @override
   Widget build(BuildContext context) {
-    if (!Directory('${_photoDir.path}').existsSync()) {
+    if (!_photoDir.existsSync()) {
       return Center(
         child: FittedBox(
           child: RichText(
@@ -38,7 +38,7 @@ class ImageDashBoard extends StatelessWidget {
           .map((item) => item.path)
           .where((item) => item.endsWith('.jpg'))
           .toList(growable: false);
-      if (imageList.length > 0) {
+      if (imageList.isNotEmpty) {
         return Container(
           margin: const EdgeInsets.all(8.0),
           child: StaggeredGridView.countBuilder(

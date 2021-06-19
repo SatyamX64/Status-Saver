@@ -1,15 +1,15 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
-import 'dart:io';
 
 class MyVideoPlayer extends StatefulWidget {
   final String path;
 
-  MyVideoPlayer({Key ?key, required this.path}) : super(key: key);
+  const MyVideoPlayer({Key? key, required this.path}) : super(key: key);
 
   @override
-  _MyVideoPlayerState createState() => new _MyVideoPlayerState();
+  _MyVideoPlayerState createState() => _MyVideoPlayerState();
 }
 
 class _MyVideoPlayerState extends State<MyVideoPlayer> {
@@ -20,12 +20,9 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
   Future<void> initVideoPlayer() async {
     await _videoPlayerController.initialize();
     setState(() {
-      print(_videoPlayerController.value.aspectRatio);
       _chewieController = ChewieController(
         videoPlayerController: _videoPlayerController,
         aspectRatio: _videoPlayerController.value.aspectRatio,
-        autoPlay: false,
-        looping: false,
       );
     });
   }
@@ -50,7 +47,7 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
                       controller: _chewieController,
                     ),
                   )
-                :  CircularProgressIndicator(),
+                : const CircularProgressIndicator(),
           );
         });
   }

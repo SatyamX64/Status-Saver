@@ -25,6 +25,7 @@ dependencies:
   lottie: ^1.0.1
   share_plus: ^2.1.2
   in_app_review: ^2.0.2
+  lint: ^1.5.3
 
 dev_dependencies:
   flutter_test:

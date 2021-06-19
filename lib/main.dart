@@ -10,14 +10,14 @@ import 'package:status_saver/screens/home_screen.dart';
 import 'package:status_saver/screens/chat_screen.dart';
 import 'package:status_saver/services/permissions_service.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
   runApp(
     MyApp(
-      savedThemeMode: savedThemeMode,
+      savedThemeMode: savedThemeMode ?? AdaptiveThemeMode.light,
     ),
   );
 }
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   MyApp({Key? key, required this.savedThemeMode}) : super(key: key);
 
   final PermissionsService _permissionsService = PermissionsService();
-  final savedThemeMode;
+  final AdaptiveThemeMode savedThemeMode;
   late final Future<PermissionStatus> _requestPermission =
       _permissionsService.requestPermission([Permission.storage]);
   @override
@@ -38,8 +38,9 @@ class MyApp extends StatelessWidget {
         primaryColor: ColorPalette.lightPrimary,
         accentColor: ColorPalette.lightAccent,
         scaffoldBackgroundColor: ColorPalette.lightBackground,
-        iconTheme: IconThemeData(color: ColorPalette.lightActive), // For FAB
-        primaryIconTheme: IconThemeData(
+        iconTheme:
+            const IconThemeData(color: ColorPalette.lightActive), // For FAB
+        primaryIconTheme: const IconThemeData(
           color: ColorPalette.lightActive,
         ),
         buttonColor: ColorPalette.darkAccent,
@@ -47,19 +48,19 @@ class MyApp extends StatelessWidget {
             style: ElevatedButton.styleFrom(primary: ColorPalette.lightAccent)),
         outlinedButtonTheme: OutlinedButtonThemeData(
             style: OutlinedButton.styleFrom(primary: ColorPalette.lightAccent)),
-        textSelectionTheme: TextSelectionThemeData(
+        textSelectionTheme: const TextSelectionThemeData(
             selectionHandleColor: ColorPalette.lightAccent,
             cursorColor: ColorPalette.lightInactive),
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
           headline6: TextStyle(
               color: ColorPalette.lightInactive, fontWeight: FontWeight.bold),
           headline4: TextStyle(
               color: ColorPalette.lightInactive, fontWeight: FontWeight.bold),
         ),
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
             titleTextStyle: TextStyle(
                 fontWeight: FontWeight.bold, color: ColorPalette.lightActive)),
-        tabBarTheme: TabBarTheme(
+        tabBarTheme: const TabBarTheme(
           labelColor: ColorPalette.lightActive,
           labelStyle: TextStyle(fontWeight: FontWeight.bold),
           unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
@@ -79,8 +80,9 @@ class MyApp extends StatelessWidget {
         primaryColor: ColorPalette.darkPrimary,
         accentColor: ColorPalette.darkAccent,
         scaffoldBackgroundColor: ColorPalette.darkBackground,
-        iconTheme: IconThemeData(color: ColorPalette.darkActive), // For FAB
-        primaryIconTheme: IconThemeData(
+        iconTheme:
+            const IconThemeData(color: ColorPalette.darkActive), // For FAB
+        primaryIconTheme: const IconThemeData(
           color: ColorPalette.darkActive,
         ),
         buttonColor: ColorPalette.darkAccent,
@@ -88,35 +90,35 @@ class MyApp extends StatelessWidget {
             style: ElevatedButton.styleFrom(primary: ColorPalette.darkAccent)),
         outlinedButtonTheme: OutlinedButtonThemeData(
             style: OutlinedButton.styleFrom(primary: ColorPalette.darkAccent)),
-        textSelectionTheme: TextSelectionThemeData(
+        textSelectionTheme: const TextSelectionThemeData(
             selectionHandleColor: ColorPalette.darkAccent,
             cursorColor: ColorPalette.darkActive),
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
             headline6: TextStyle(
                 color: ColorPalette.darkInactive, fontWeight: FontWeight.bold),
             headline4: TextStyle(
                 color: ColorPalette.darkInactive, fontWeight: FontWeight.bold)),
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
             titleTextStyle: TextStyle(
                 fontWeight: FontWeight.bold, color: ColorPalette.darkActive)),
-        tabBarTheme: TabBarTheme(
+        tabBarTheme: const TabBarTheme(
           labelColor: ColorPalette.darkActive,
           unselectedLabelColor: ColorPalette.darkInactive,
           labelStyle: TextStyle(fontWeight: FontWeight.bold),
           unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      initial: savedThemeMode ?? AdaptiveThemeMode.light,
+      initial: savedThemeMode,
       builder: (theme, darkTheme) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Status Saver',
         theme: theme,
         darkTheme: darkTheme,
         routes: {
-          ErrorScreen.route: (ctx) => ErrorScreen(),
+          ErrorScreen.route: (ctx) => const ErrorScreen(),
           PermissionScreen.route: (ctx) => PermissionScreen(),
-          HomeScreen.route: (ctx) => HomeScreen(),
-          ChatScreen.route: (ctx) => ChatScreen(),
+          HomeScreen.route: (ctx) => const HomeScreen(),
+          ChatScreen.route: (ctx) => const ChatScreen(),
           InfoScreen.route: (ctx) => InfoScreen(),
         },
         home: FutureBuilder(
@@ -125,7 +127,7 @@ class MyApp extends StatelessWidget {
             if (status.connectionState == ConnectionState.done) {
               if (status.hasData) {
                 if (status.data == PermissionStatus.granted) {
-                  return HomeScreen();
+                  return const HomeScreen();
                 } else {
                   return PermissionScreen();
                 }

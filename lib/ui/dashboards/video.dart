@@ -9,18 +9,18 @@ class VideoDashBoard extends StatelessWidget {
   VideoDashBoard({Key? key}) : super(key: key);
 
   final Directory _videoDir = Directory(statusPath);
-  Future<String?> _getThumbnail(videoPathUrl) async {
+  Future<String?> _getThumbnail(String videoPathUrl) async {
     final thumbnail = await VideoThumbnail.thumbnailFile(
-        video: videoPathUrl, imageFormat: ImageFormat.PNG);
+        video: videoPathUrl);
 
     final file = File(thumbnail ?? '');
-    String filePath = file.path;
+    final String filePath = file.path;
     return filePath;
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!Directory('${_videoDir.path}').existsSync()) {
+    if (!_videoDir.existsSync()) {
       return Center(
         child: FittedBox(
           child: RichText(
@@ -48,7 +48,7 @@ class VideoDashBoard extends StatelessWidget {
           .map((item) => item.path)
           .where((item) => item.endsWith('.mp4'))
           .toList(growable: false);
-      if (videoList.length > 0) {
+      if (videoList.isNotEmpty) {
         return Container(
           margin: const EdgeInsets.all(8.0),
           child: StaggeredGridView.countBuilder(
@@ -80,7 +80,7 @@ class VideoDashBoard extends StatelessWidget {
                             return Hero(
                               tag: videoList[index],
                               child: Image.file(
-                                File(snapshot.data as String),
+                                File(snapshot.data! as String),
                                 fit: BoxFit.cover,
                               ),
                             );
@@ -96,7 +96,7 @@ class VideoDashBoard extends StatelessWidget {
                             );
                           }
                         } else {
-                          return Center(child: CircularProgressIndicator());
+                          return const Center(child: CircularProgressIndicator());
                         }
                       },
                     ),
@@ -104,7 +104,7 @@ class VideoDashBoard extends StatelessWidget {
                 ),
               );
             },
-            staggeredTileBuilder: (i) => StaggeredTile.count(2, 3),
+            staggeredTileBuilder: (i) => const StaggeredTile.count(2, 3),
             mainAxisSpacing: 8.0,
             crossAxisSpacing: 8.0,
           ),

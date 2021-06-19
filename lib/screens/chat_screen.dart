@@ -33,9 +33,9 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget _buildCountryDialogItem(Country country) => Row(
         children: <Widget>[
           CountryPickerUtils.getDefaultFlagImage(country),
-          SizedBox(width: 8.0),
+          const SizedBox(width: 8.0),
           Text("+${country.phoneCode}"),
-          SizedBox(width: 8.0),
+          const SizedBox(width: 8.0),
           Flexible(
             child: Align(
               alignment: Alignment.centerRight,
@@ -49,11 +49,12 @@ class _ChatScreenState extends State<ChatScreen> {
         ],
       );
 
+  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final adaptiveTheme = AdaptiveTheme.of(context);
 
-    Widget _gradientBackground = Container(
+    final Widget _gradientBackground = Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -77,7 +78,7 @@ class _ChatScreenState extends State<ChatScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
           ),
           onPressed: () {
@@ -99,7 +100,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     borderRadius: const BorderRadius.all(Radius.circular(2)),
                     child: Container(
                       height: 360,
-                      padding: EdgeInsets.all(24),
+                      padding: const EdgeInsets.all(24),
                       decoration: BoxDecoration(
                           color: Theme.of(context).scaffoldBackgroundColor,
                           borderRadius: BorderRadius.circular(2)),
@@ -122,7 +123,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                             '$countryName ',
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 1,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 24),
                                           ),
@@ -131,7 +132,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                           '($countryCode)',
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 24),
                                         ),
@@ -155,7 +156,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               ],
                             ),
                           ),
-                          Divider(),
+                          const Divider(),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 12.0),
                             child: TextField(
@@ -176,13 +177,13 @@ class _ChatScreenState extends State<ChatScreen> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.grey[350]),
                               ),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                          Divider(),
+                          const Divider(),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: Text(
@@ -195,14 +196,15 @@ class _ChatScreenState extends State<ChatScreen> {
                               ),
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Material(
                             elevation: 2,
                             child: InkWell(
                               onTap: _openWhatsApp,
                               child: Container(
                                 alignment: Alignment.center,
-                                padding: EdgeInsets.symmetric(horizontal: 16),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
                                 height: 48,
                                 decoration: BoxDecoration(
                                     color: adaptiveTheme.mode ==
@@ -210,8 +212,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                         ? ColorPalette.darkGradientHigh
                                         : ColorPalette.lightGradientLow),
                                 child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
+                                  children: const [
                                     Text(
                                       'NEXT',
                                       style: TextStyle(
@@ -246,8 +247,8 @@ class _ChatScreenState extends State<ChatScreen> {
     showDialog(
       context: context,
       builder: (context) => CountryPickerDialog(
-          titlePadding: EdgeInsets.all(8.0),
-          searchInputDecoration: InputDecoration(hintText: 'Search'),
+          titlePadding: const EdgeInsets.all(8.0),
+          searchInputDecoration: const InputDecoration(hintText: 'Search'),
           isSearchable: true,
           title: Text(
             'Select your phone code',
@@ -258,19 +259,20 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
           onValuePicked: (Country country) {
             setState(() {
-              countryCode = '+' + country.phoneCode;
+              countryCode = '+${country.phoneCode}';
               countryName = country.name;
             });
           },
           priorityList: [
             CountryPickerUtils.getCountryByIsoCode('TR'),
             CountryPickerUtils.getCountryByIsoCode('US'),
+            CountryPickerUtils.getCountryByIsoCode('IN'),
           ],
           itemBuilder: _buildCountryDialogItem),
     );
   }
 
-  void _openWhatsApp() async {
+  Future<void> _openWhatsApp() async {
     try {
       final link = WhatsAppUnilink(
         phoneNumber: countryCode + _textEditingController.text,
@@ -280,8 +282,8 @@ class _ChatScreenState extends State<ChatScreen> {
       // Use either Dart's string interpolation or the toString() method.
       // The "launch" method is part of "url_launcher".
       await launch('$link');
-    } on PlatformException catch (e) {
-      print(e.toString());
+    } catch (e) {
+      return;
     }
   }
 }

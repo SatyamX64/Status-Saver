@@ -12,11 +12,12 @@ class InfoScreen extends StatelessWidget {
   InfoScreen({Key? key}) : super(key: key);
   final InAppReview inAppReview = InAppReview.instance;
 
+  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final adaptiveTheme = AdaptiveTheme.of(context);
 
-    Widget _gradientBackground = Container(
+    final Widget _gradientBackground = Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -40,7 +41,7 @@ class InfoScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
           ),
           onPressed: () {
@@ -63,14 +64,14 @@ class InfoScreen extends StatelessWidget {
                     child: Container(
                       height: 360,
                       width: double.maxFinite,
-                      padding: EdgeInsets.all(24),
+                      padding: const EdgeInsets.all(24),
                       decoration: BoxDecoration(
                           color: Theme.of(context).scaffoldBackgroundColor,
                           borderRadius: BorderRadius.circular(2)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Center(
+                          const Center(
                             child: Text(
                               'Status Saver ✨',
                               overflow: TextOverflow.ellipsis,
@@ -79,14 +80,14 @@ class InfoScreen extends StatelessWidget {
                                   fontWeight: FontWeight.bold, fontSize: 24),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 16,
                             child: Center(
                               child: Divider(),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 12.0),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 12.0),
                             child: Text(
                               '◉ Save WhatsApp Status',
                               style: TextStyle(
@@ -95,8 +96,8 @@ class InfoScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 12.0),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 12.0),
                             child: Text(
                               '◉ Chat without Saving Number',
                               style: TextStyle(
@@ -126,8 +127,7 @@ class InfoScreen extends StatelessWidget {
                                         try {
                                           await launch(portfolioLink);
                                         } catch (e) {
-                                          print(
-                                              'Something went Wrong : ${e.toString()}');
+                                          return;
                                         }
                                       },
                                     style: TextStyle(
@@ -144,7 +144,7 @@ class InfoScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Row(
                             children: [
                               Expanded(
@@ -153,11 +153,10 @@ class InfoScreen extends StatelessWidget {
                                     try {
                                       await inAppReview.openStoreListing();
                                     } catch (e) {
-                                      print(
-                                          'Something went wrong : ${e.toString()}');
+                                      return;
                                     }
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     'Rate',
                                     style: TextStyle(
                                         fontSize: 16,
@@ -166,7 +165,7 @@ class InfoScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 16,
                               ),
                               Expanded(
@@ -177,11 +176,10 @@ class InfoScreen extends StatelessWidget {
                                           'Check this out : $playStoreLink',
                                           subject: 'Status Saver');
                                     } catch (e) {
-                                      print(
-                                          'Something went Wrong : ${e.toString()}');
+                                      return;
                                     }
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     'Share',
                                     style: TextStyle(
                                         fontSize: 16,
